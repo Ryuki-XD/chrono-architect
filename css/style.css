@@ -34,6 +34,10 @@ html, body {
     0 0 60px rgba(0, 229, 255, 0.06),
     0 0 120px rgba(224, 64, 251, 0.03);
   outline: none;
+  /* Stop touch gestures from scrolling/zooming the page while playing */
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 /* ── Loading Screen ───────────────────────────── */

@@ -15,6 +15,10 @@ export default class InputManager {
     this._interactPressed = false;
     this._enabled = true;
 
+    // Touch input state (set by TouchControls)
+    this._touchDirection = null;
+    this._touchFlags = { record: false, restart: false, undo: false, hint: false, pause: false };
+
     // Key objects
     const kb = scene.input.keyboard;
     this.keys = {
@@ -62,6 +66,28 @@ export default class InputManager {
     this._enabled = flag;
   }
 
+  /** Hold/release a directional action from the on-screen D-pad. */
+  setTouchDirection(action) {
+    this._touchDirection = action || null;
+  }
+
+  /** One-shot press from an on-screen button: 'interact', 'record', 'restart', 'undo', 'hint', 'pause'. */
+  pressTouchButton(name) {
+    if (name === 'interact') {
+      this._interactPressed = true;
+    } else if (name in this._touchFlags) {
+      this._touchFlags[name] = true;
+    }
+  }
+
+  _consumeTouch(name) {
+    if (this._touchFlags[name]) {
+      this._touchFlags[name] = false;
+      return true;
+    }
+    return false;
+  }
+
   /**
    * Poll current directional / interact input and return a single action.
    * Called once per game tick. Resets single-press flags after reading.
@@ -81,28 +107,31 @@ export default class InputManager {
     if (this.keys.left.isDown || this.keys.left2.isDown)   return ACTIONS.MOVE_LEFT;
     if (this.keys.right.isDown || this.keys.right2.isDown) return ACTIONS.MOVE_RIGHT;
 
+    // On-screen D-pad (held)
+    if (this._touchDirection) return this._touchDirection;
+
     return ACTIONS.WAIT;
   }
 
   /** Was SPACE just pressed this frame? (single-shot) */
   justPressedRecord() {
-    return Phaser.Input.Keyboard.JustDown(this.keys.record);
+    return Phaser.Input.Keyboard.JustDown(this.keys.record) || this._consumeTouch('record');
   }
 
   justPressedRestart() {
-    return Phaser.Input.Keyboard.JustDown(this.keys.restart);
+    return Phaser.Input.Keyboard.JustDown(this.keys.restart) || this._consumeTouch('restart');
   }
 
   justPressedUndo() {
-    return Phaser.Input.Keyboard.JustDown(this.keys.undo);
+    return Phaser.Input.Keyboard.JustDown(this.keys.undo) || this._consumeTouch('undo');
   }
 
   justPressedHint() {
-    return Phaser.Input.Keyboard.JustDown(this.keys.hint);
+    return Phaser.Input.Keyboard.JustDown(this.keys.hint) || this._consumeTouch('hint');
   }
 
   justPressedPause() {
-    return Phaser.Input.Keyboard.JustDown(this.keys.pause);
+    return Phaser.Input.Keyboard.JustDown(this.keys.pause) || this._consumeTouch('pause');
   }
 
   destroy() {

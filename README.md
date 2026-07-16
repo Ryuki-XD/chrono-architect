@@ -46,6 +46,12 @@ You wake in a strange facility with the power to manipulate time. Each level pre
 | `H` | Show hint |
 | `ESC` | Pause menu |
 
+### 📱 Mobile / Touch
+
+On touch devices, on-screen controls appear automatically: a **D-pad** (bottom-left),
+**CLONE** and **E** interact buttons (bottom-right), and restart / undo / pause buttons
+(top-right). Append `?touch=1` to the URL to force them on any device for testing.
+
 ---
 
 ## 📦 Installation

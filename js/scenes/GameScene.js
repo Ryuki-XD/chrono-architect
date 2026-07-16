@@ -11,6 +11,7 @@ import CloneManager from '../managers/CloneManager.js';
 import InputManager from '../managers/InputManager.js';
 import ParticleEffects from '../utils/ParticleEffects.js';
 import Player from '../entities/Player.js';
+import TouchControls from '../ui/TouchControls.js';
 import LEVELS from '../data/LevelData.js';
 
 export default class GameScene extends Phaser.Scene {
@@ -40,6 +41,12 @@ export default class GameScene extends Phaser.Scene {
     this.levelManager = new LevelManager(this);
     this.levelManager.build(this.levelData);
     this.inputManager = new InputManager(this);
+
+    // On-screen controls for touch devices (?touch=1 forces them for testing)
+    const wantsTouch = this.sys.game.device.input.touch
+      || new URLSearchParams(window.location.search).has('touch');
+    this.touchControls = wantsTouch ? new TouchControls(this) : null;
+
     this.cloneManager = new CloneManager(
       this,
       this.levelManager.playerStartX,
@@ -533,6 +540,7 @@ export default class GameScene extends Phaser.Scene {
     this.game.events.off('ui:replay');
 
     this.inputManager?.destroy();
+    this.touchControls?.destroy();
     this.cloneManager?.destroy();
     this.levelManager?.destroy();
     this.player?.destroy();
