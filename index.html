@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="description" content="Chrono Architect — A time-clone puzzle game. Record your actions, replay them as clones, and cooperate with your past selves to solve increasingly complex puzzles.">
+  <meta name="theme-color" content="#080c18">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <title>Chrono Architect — Time-Clone Puzzle Game</title>
+
+  <!-- Favicon (inline SVG) -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⏳</text></svg>">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Loading screen (visible until Phaser takes over) -->
+  <div id="loading-screen">
+    <div class="loading-title">CHRONO</div>
+    <div class="loading-subtitle">ARCHITECT</div>
+    <div class="loading-bar-track">
+      <div class="loading-bar-fill" id="loading-bar"></div>
+    </div>
+    <div class="loading-status">Initializing...</div>
+  </div>
+
+  <!-- Phaser canvas is injected here -->
+  <div id="game-container"></div>
+
+  <!-- Phaser 3 (from CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/phaser@3.80.1/dist/phaser.min.js"></script>
+
+  <!-- Game entry point (ES6 Module) -->
+  <script type="module" src="main.js"></script>
+
+</body>
+</html>
