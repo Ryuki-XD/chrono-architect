@@ -62,6 +62,14 @@ export default class LevelManager {
     this.height = this.grid.length;
     this.width = this.grid[0].length;
 
+    // Doors are drawn on wall cells in the grid art; carve those cells into
+    // floor so the door entity alone decides whether the tile blocks.
+    for (const ent of levelData.entities || []) {
+      if (ent.type === 'door' && this.grid[ent.y]?.[ent.x] === TILE_TYPES.WALL) {
+        this.grid[ent.y][ent.x] = TILE_TYPES.FLOOR;
+      }
+    }
+
     // Center the level in the viewport
     this.offsetX = Math.floor((GAME_WIDTH  - this.width  * TILE_SIZE) / 2);
     this.offsetY = Math.floor((GAME_HEIGHT - this.height * TILE_SIZE) / 2);
