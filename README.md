@@ -49,8 +49,9 @@ You wake in a strange facility with the power to manipulate time. Each level pre
 ### 📱 Mobile / Touch
 
 On touch devices, on-screen controls appear automatically: a **D-pad** (bottom-left),
-**CLONE** and **E** interact buttons (bottom-right), and restart / undo / pause buttons
-(top-right). Append `?touch=1` to the URL to force them on any device for testing.
+**CLONE** and **E** interact buttons (bottom-right), and fullscreen / restart / undo /
+pause buttons (top-right). Play in **landscape** — portrait screens show a rotate prompt.
+Append `?touch=1` to the URL to force the controls on any device for testing.
 
 ---
 
